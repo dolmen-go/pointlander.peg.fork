@@ -593,7 +593,9 @@ func (t *Tree) Compile(file string, args []string, out io.Writer) (err error) {
 	t.EndSymbol = 0x110000
 	t.RulesCount++
 
-	t.Generator = strings.Join(slices.Concat([]string{"peg"}, args[1:]), " ")
+	if t.Generator == "" {
+		t.Generator = strings.Join(slices.Concat([]string{"peg"}, args[1:]), " ")
+	}
 
 	counts := [TypeLast]uint{}
 	countsByRule := make([]*[TypeLast]uint, t.RulesCount)
